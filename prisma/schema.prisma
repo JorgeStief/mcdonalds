@@ -15,8 +15,8 @@ datasource db {
 
 model Restaurant {
   id             String         @id @default(uuid())
-  name           String
-  slug           String
+  name           String 
+  slug           String @unique
   description    String
   avatarImageUrl String
   coverImageUrl  String
