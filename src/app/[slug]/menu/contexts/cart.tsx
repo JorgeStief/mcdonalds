@@ -28,17 +28,25 @@ export const CartProvider = ({ children }: {children: ReactNode}) => {
         setIsOpen(!isOpen);
     };
 
-    const addProduct = async (product: CartProduct) => {
-        const productIndex = products.findIndex((p) => p.id === product.id);
-
-        if (productIndex !== -1) {
-            const newProducts = [...products];
-            newProducts[productIndex].quantity += product.quantity;
-            setProducts(newProducts);
-        } else {
-            setProducts([...products, { ...product }]);
+    const addProduct = (product: CartProduct) => {
+        const productIsAlreadyOnTheCart = products.some(
+          (prevProduct) => prevProduct.id === product.id,
+        );
+        if (!productIsAlreadyOnTheCart) {
+          return setProducts((prev) => [...prev, product]);
         }
-    }
+        setProducts((prevProducts) => {
+          return prevProducts.map((prevProduct) => {
+            if (prevProduct.id === product.id) {
+              return {
+                ...prevProduct,
+                quantity: prevProduct.quantity + product.quantity,
+              };
+            }
+            return prevProduct;
+          });
+        });
+    };
 
     return (
         <CartContext.Provider value={{ isOpen, products, toogleCart, addProduct }}>
