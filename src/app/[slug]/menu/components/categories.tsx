@@ -65,7 +65,6 @@ const RestaurantCategories = ({restaurant}:RestaurantCategoriesProps) => {
             </ScrollArea>
             <h3 className="px-5 pt-3 font-semibold">{selectedCategory.name}</h3>
             <Products products={selectedCategory.products}/>
-            
         </div>
      );
 }
