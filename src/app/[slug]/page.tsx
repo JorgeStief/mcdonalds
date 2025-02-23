@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { getRestaurantBySlug } from "@/data/getRestaurantBySlug";
 
-import ConsumptionMethodOptionCard from './components/ConsumptionMethodOptionCard';
+import ConsumptionMethodOptionCard from './components/consumption-method-option-card';
 
 interface RestaurantPageProps {
     params: Promise<{ slug: string }>;

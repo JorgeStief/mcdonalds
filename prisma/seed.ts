@@ -25,7 +25,7 @@ const main = async () => {
         slug: "combos",
       },
     });
-    console.log(combosCategory);
+
     await tx.product.createMany({
       data: [
         {

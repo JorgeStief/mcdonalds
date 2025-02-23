@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 
-import { getRestaurantBySlug } from "@/data/getRestaurantBySlug";
+import { getRestaurantBySlugWithCategoriesAndProducts } from "@/data/getRestaurantBySlugWithCategoriesAndProducts";
 
+import RestaurantCategories from "./components/categories";
 import RestaurantHeader from './components/header';
 interface RestaurantMenuPageProps {
     params: Promise<{ slug: string }>;
@@ -15,16 +16,18 @@ const isConsumptionMethodValid = (consumptionMethod: string) => {
 const RestaurantMenuPage = async ({ params, searchParams }: RestaurantMenuPageProps) => {
     const {slug} = await params
     const {consumptionMethod} = await searchParams
-    const restaurant = await getRestaurantBySlug(slug);
+    const restaurant = await getRestaurantBySlugWithCategoriesAndProducts(slug);
     if (!restaurant) {
         return notFound()
     }
     if (!isConsumptionMethodValid(consumptionMethod)) {
         return notFound()
     }
+
     return (
         <div>
           <RestaurantHeader restaurant={restaurant}/>
+          <RestaurantCategories restaurant={restaurant}/>
         </div>
     );
 }
