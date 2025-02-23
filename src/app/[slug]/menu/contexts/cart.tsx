@@ -2,7 +2,7 @@
 import { Product } from "@prisma/client";
 import { createContext, ReactNode, useState } from "react";
 
-interface CartProduct extends Product {
+interface CartProduct extends Pick<Product,  "id" | "name" | "price"> {
     quantity: number;
 }
 
@@ -33,10 +33,10 @@ export const CartProvider = ({ children }: {children: ReactNode}) => {
 
         if (productIndex !== -1) {
             const newProducts = [...products];
-            newProducts[productIndex].quantity += 1;
+            newProducts[productIndex].quantity += product.quantity;
             setProducts(newProducts);
         } else {
-            setProducts([...products, { ...product, quantity: 1 }]);
+            setProducts([...products, { ...product }]);
         }
     }
 
